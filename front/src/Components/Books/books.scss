@@ -3,18 +3,41 @@
   table-layout: fixed;
   width: 100%;
   margin-bottom: 20px;
+  border-radius: 5px;
 
   th {
-    font-weight: bold;
-    padding: 5px;
+    font-weight: 700;
+    padding: 17px;
     background: #efefef;
     border: 1px solid #dddddd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   td {
-    padding: 5px 10px;
+    font-weight: 500;
+    padding: 10px 10px;
     border: 1px solid #eee;
-    text-align: left;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:last-child {
+      display: flex;
+      column-gap: 15px;
+      justify-content: center;
+
+      span {
+        font-size: 20px;
+        transition: 0.1s color ease-in-out;
+
+        &:hover {
+          color: #3e8bb4;
+        }
+      }
+    }
   }
 
   tbody tr:nth-child(odd) {
@@ -23,5 +46,27 @@
 
   tbody tr:nth-child(even) {
     background: #F7F7F7;
+  }
+}
+
+.action {
+  cursor: pointer;
+  font-weight: 700;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 650px) {
+  .table {
+    font-size: 14px;
+    th {
+      padding: 10px 5px;
+    }
+
+    td {
+      padding: 5px 10px;
+    }
   }
 }

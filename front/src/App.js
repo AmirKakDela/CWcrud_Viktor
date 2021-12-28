@@ -16,14 +16,12 @@ function App() {
                 <Header/>
             </div>
             <div className="container">
-                <div className="main">
                     <Routes>
                         <Route path="/books" element={<Books/>}/>
                         <Route path="/readers" element={<Readers/>}/>
                         <Route path="/gives" element={<Gives/>}/>
                     </Routes>
                 </div>
-            </div>
         </>
     );
 }

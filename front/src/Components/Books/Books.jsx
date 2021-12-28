@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './books.scss'
+import {useDispatch, useSelector} from "react-redux";
+import {getBooks} from "../../redux/thunkAction";
+import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
+
 
 const Books = () => {
+    const dispatch = useDispatch();
+    const books = useSelector(state => state.books.books)
+    console.log(books)
+
+    useEffect(() => {
+        dispatch(getBooks())
+    }, [])
     return (
         <div>
             <table className="table">
@@ -15,30 +26,20 @@ const Books = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Gloria</td>
-                    <td>Reeves</td>
-                    <td>67439</td>
-                    <td>10/18/1985</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>Graham</td>
-                    <td>Bonner</td>
-                    <td>90727</td>
-                    <td>12/07/1983</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>Warren</td>
-                    <td>Wheeler</td>
-                    <td>99134</td>
-                    <td>11/11/1984</td>
-                    <td>2</td>
-                </tr>
+                {books.map(book => {
+                    return <tr key={book._id}>
+                        <td>{book.name}</td>
+                        <td>{book.author}</td>
+                        <td>{book.year}</td>
+                        <td>{book.count}</td>
+                        <td>
+                            <span className="action"><DeleteOutlined/></span>
+                            <span className="action"><EditOutlined/></span>
+                        </td>
+                    </tr>
+                })}
                 </tbody>
             </table>
-
         </div>
     );
 };
