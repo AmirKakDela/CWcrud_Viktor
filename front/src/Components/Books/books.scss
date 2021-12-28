@@ -25,13 +25,10 @@
     white-space: nowrap;
 
     &:last-child {
-      display: flex;
-      column-gap: 15px;
-      justify-content: center;
-
       span {
         font-size: 20px;
         transition: 0.1s color ease-in-out;
+        margin-right: 10px;
 
         &:hover {
           color: #3e8bb4;
@@ -85,6 +82,7 @@
 
   label {
     color: black;
+    font-weight: 500;
   }
 
   input {
@@ -93,6 +91,7 @@
     border: none;
     width: 300px;
     margin-top: 5px;
+
     &:focus {
       outline: none;
     }
@@ -108,12 +107,29 @@
       background-color: white;
       color: #676262;
     }
+    &[disabled] {
+      cursor: not-allowed;
+      background-color: #8d8a8a;
+      color: #cecccc;
+      &:hover {
+        background-color: #8d8a8a;
+        color: #cecccc;
+      }
+    }
+  }
+
+  &__error-text {
+    color: red;
+    font-weight: 500;
+    margin-top: -10px;
+    font-size: 14px;
   }
 }
 
 @media (max-width: 650px) {
   .table {
     font-size: 14px;
+
     th {
       padding: 10px 5px;
     }
