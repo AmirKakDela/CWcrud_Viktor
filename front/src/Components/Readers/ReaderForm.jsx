@@ -2,12 +2,15 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import * as yup from "yup";
 import {Formik} from "formik";
+import MaskedInput from 'react-text-mask'
+import {createReader} from "../../redux/thunkReaderAction";
 
 const ReaderForm = (props) => {
     const dispatch = useDispatch();
 
     const onSubmit = (e, values) => {
         e.preventDefault()
+        dispatch(createReader(values))
         console.log(values)
     }
 
@@ -48,13 +51,15 @@ const ReaderForm = (props) => {
                             <p className="form__error-text">{formik.errors.lastName}</p>}
 
                         <label>Телефон
-                            <input type="tel"
-                                   placeholder="Введите телефон читателя..."
-                                   className="form__input"
-                                   name="tel"
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                                   value={formik.values.tel}/>
+                            <MaskedInput
+                                mask={['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                className="form__input"
+                                placeholder="Введите номер телефона..."
+                                guide={true}
+                                name="tel"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                value={formik.values.tel}/>
                         </label>
                         {formik.errors.tel && formik.touched.tel &&
                             <p className="form__error-text">{formik.errors.tel}</p>}
@@ -77,9 +82,7 @@ export default ReaderForm;
 const validationSchema = yup.object().shape({
     firstName: yup.string().required('Это обязательное поле'),
     lastName: yup.string().required('Это обязательное поле'),
-    tel: yup.number().required('Это обязательное поле')
-        .positive('Год выпуска не может быть отрицательным')
-        .integer().max(2021, 'Год выпуска не может быть больше, чем нынешний год'),
+    tel: yup.string().required('Это обязательное поле')
 })
 
 const initialValues = {

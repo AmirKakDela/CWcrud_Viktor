@@ -24,3 +24,15 @@ export const deleteReader = (id) => {
         }
     }
 }
+
+export const createReader = (reader) => {
+    return async dispatch => {
+        try {
+            const response = await axios.post(`${url}/api/readers/create`, reader)
+            console.log(response)
+            dispatch(createReader(reader))
+        } catch (e) {
+
+        }
+    }
+}

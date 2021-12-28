@@ -18,6 +18,7 @@ const Readers = () => {
         dispatch(deleteReader(id))
     }
 
+
     useEffect(() => {
         dispatch(getReaders())
     }, [])
