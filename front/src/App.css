@@ -1,1 +1,30 @@
 @import '~antd/dist/antd.css';
+
+.ant-layout-sider {
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    background-color: #092d4e;
+}
+
+.ant-layout-content {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
