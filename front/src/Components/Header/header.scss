@@ -1,9 +1,36 @@
 .header {
-  &__title {
-    color: white;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo {
     font-size: 30px;
     font-weight: 700;
-    text-align: center;
+    cursor: pointer;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+  .nav {
+    &__link {
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      font-size: 20px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    &__link.active {
+      background-color: #71c1ea;
+    }
+
   }
 }
 
