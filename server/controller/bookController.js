@@ -37,6 +37,18 @@ class bookController {
             console.log('Ошибка сервера при deleteBook', e);
         }
     }
+
+    async updateBook(req, res) {
+        try {
+            const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body);
+            if (!updatedBook) return res.status(412).json({message: "Такой книги не существует"});
+            console.log(updatedBook)
+            return res.json({message: 'Книга успешно обновлена', updatedBook: req.body});
+        } catch (e) {
+            return res.send({message: "Ошибка сервера при обновлении книги."});
+            console.log('Ошибка сервера при updateBook', e);
+        }
+    }
 }
 
 module.exports = new bookController();
