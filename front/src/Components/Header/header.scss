@@ -23,14 +23,21 @@
     &__link {
       text-decoration: none;
       color: black;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 20px;
       padding: 5px;
       border-radius: 5px;
+      transition: .15s color ease-in-out;
+      &:hover {
+        color: #71c1ea;
+      }
     }
 
     &__link.active {
-      background-color: #71c1ea;
+      background-color: rgba(113, 193, 234, 0.68);
+      &:hover {
+        color: #676262;
+      }
     }
   }
 }

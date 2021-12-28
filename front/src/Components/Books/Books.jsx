@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './books.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {getBooks} from "../../redux/thunkAction";
@@ -8,13 +8,19 @@ import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
 const Books = () => {
     const dispatch = useDispatch();
     const books = useSelector(state => state.books.books)
-    console.log(books)
+    const [lookForm, setLookForm] = useState(false);
 
     useEffect(() => {
         dispatch(getBooks())
     }, [])
+
+
     return (
         <div>
+            <button className="button"
+                    onClick={() => setLookForm(prev => !prev)}
+            >{lookForm ? 'Отменить' : 'Добавить книгу'}</button>
+            { lookForm ? <BookForm/> : null}
             <table className="table">
                 <thead>
                 <tr>
@@ -45,3 +51,28 @@ const Books = () => {
 };
 
 export default Books;
+
+
+const BookForm = () => {
+
+
+    return <form className="form">
+        <label htmlFor="name">Название книги
+            <input type="text" id="name" placeholder="Введите название книги..." className="form__input"/>
+        </label>
+
+        <label> Автор
+            <input type="text" placeholder="Введите автора..." className="form__input"/>
+        </label>
+
+        <label>Год выпуска
+            <input type="number" placeholder="Введите год выпуска..." className="form__input"/>
+        </label>
+
+        <label> Количество книг
+            <input type="number" placeholder="Введите количество книг..." className="form__input"/>
+        </label>
+
+        <button className="button">Сохранить</button>
+    </form>
+}
