@@ -6,7 +6,7 @@ const { Header, Footer, Sider, Content } = Layout;
 function App() {
     return (
         <Layout>
-            <Sider style={{color: 'white'}}>
+            <Sider style=>
                 <h1 style={{color: 'white'}}>Книги</h1>
                 <h1 style={{color: 'white'}}>Читатели</h1>
                 <h1 style={{color: 'white'}}>Выдачи</h1>
