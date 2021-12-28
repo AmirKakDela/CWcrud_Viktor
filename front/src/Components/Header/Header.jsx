@@ -1,9 +1,8 @@
-import React,  from 'react';
+import React from 'react';
 import './header.scss'
-import { NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 const Header = () => {
-
     return (
         <header className="header">
             <div className="header__logo">

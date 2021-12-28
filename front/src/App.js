@@ -1,6 +1,13 @@
 import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
+import {
+    Route,
+    Routes
+} from "react-router-dom";
+import Books from "./Components/Books/Books";
+import Gives from "./Components/Gives/Gives";
+import Readers from "./Components/Readers/Readers";
 
 function App() {
     return (
@@ -9,7 +16,13 @@ function App() {
                 <Header/>
             </div>
             <div className="container">
-
+                <div className="main">
+                    <Routes>
+                        <Route path="/books" element={<Books/>}/>
+                        <Route path="/readers" element={<Readers/>}/>
+                        <Route path="/gives" element={<Gives/>}/>
+                    </Routes>
+                </div>
             </div>
         </>
     );
