@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './books.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {deleteBook, getBooks} from "../../redux/thunkAction";
+import {deleteBook, getBooks} from "../../redux/thunkBookAction";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import BookForm from "./BookForm";
 

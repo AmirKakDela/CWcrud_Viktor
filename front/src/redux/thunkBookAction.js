@@ -1,8 +1,8 @@
 import axios from "axios";
-import {createBookAction, deleteBookAction, setBooksAction} from "./reducers/bookReducer";
+import {createBookAction, deleteBookAction, setBooksAction, updateBookAction} from "./reducers/bookReducer";
 
 
-const url = 'http://localhost:5000'
+export const url = 'http://localhost:5000'
 export const getBooks = () => {
     return async dispatch => {
         try {
@@ -32,6 +32,18 @@ export const deleteBook = (id) => {
             const response = await axios.delete(`${url}/api/books/delete/${id}`)
             console.log(response)
             dispatch(deleteBookAction(id))
+        } catch (e) {
+
+        }
+    }
+}
+
+export const updateBook = (id, book) => {
+    return async dispatch => {
+        try {
+            const response = await axios.put(`${url}/api/books/update/${id}`, book)
+            console.log(response)
+            dispatch(updateBookAction(response.data.updatedBook))
         } catch (e) {
 
         }

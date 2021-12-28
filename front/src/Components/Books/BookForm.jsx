@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import * as yup from "yup";
-import {createBook} from "../../redux/thunkAction";
+import {createBook, updateBook} from "../../redux/thunkBookAction";
 import {Formik} from "formik";
 
 const BookForm = (props) => {
@@ -15,6 +15,7 @@ const BookForm = (props) => {
             console.log(props.editBook)
             if (props.editBook) {
                 console.log('put')
+                dispatch(updateBook(props.editBook._id, values))
             } else {
                 dispatch(createBook(values))
             }
