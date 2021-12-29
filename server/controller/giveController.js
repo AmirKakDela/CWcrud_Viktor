@@ -1,11 +1,33 @@
 const Gives = require("../models/Gives.js");
+const Book = require("../models/Book.js");
+const Reader = require("../models/Reader.js");
 
 class giveController {
     async getAllGives(req, res) {
         try {
-            const reader = await Gives.find();
-            if (!reader) return res.json([])
-            return res.json(reader);
+            const gives = await Gives.find();
+            if (!gives) return res.json([])
+            const booksIds = []
+            const readersIds = []
+            for (let i = 0; i < gives.length; i++) {
+                booksIds[i] = gives[i].book
+                readersIds[i] = gives[i].reader
+            }
+
+            const books = await Book.find({_id: booksIds})
+            const readers = await Reader.find({_id: readersIds})
+
+            for(let i = 0; i < gives.length; i++) {
+                if(gives[i].book === books[i]._id.valueOf()) {
+                    gives[i].book = books[i]
+                }
+                if(gives[i].reader === readers[i]._id.valueOf()) {
+                    gives[i].reader = readers[i]
+                }
+            }
+
+
+            return res.json(gives);
         } catch (e) {
             return res.send({message: "Ошибка сервера получении всех выдач."});
             console.log('Ошибка сервера при getAllGives', e);
