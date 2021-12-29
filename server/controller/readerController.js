@@ -7,7 +7,7 @@ class bookController {
             if (!reader) return res.json([])
             return res.json(reader);
         } catch (e) {
-            return res.send({message: "Ошибка сервера при создании читателя."});
+            return res.send({message: "Ошибка сервера получении все читателей."});
             console.log('Ошибка сервера при getAllReaders', e);
         }
     }

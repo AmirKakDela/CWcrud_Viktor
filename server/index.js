@@ -6,11 +6,13 @@ const PORT = process.env.PORT || 5000;
 
 const bookRouter = require('./routes/book.route');
 const readerRouter = require('./routes/reader.route');
+const givesRouter = require('./routes/gives.route');
 
 app.use(cors())
 app.use(express.json({ extended: true })); // подключаем json распознование
 app.use('/api/books', bookRouter);
 app.use('/api/readers', readerRouter);
+app.use('/api/gives', givesRouter);
 
 async function start() {
     try {
