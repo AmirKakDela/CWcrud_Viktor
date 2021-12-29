@@ -3,14 +3,19 @@ import {useDispatch} from "react-redux";
 import * as yup from "yup";
 import {Formik} from "formik";
 import MaskedInput from 'react-text-mask'
-import {createReader} from "../../redux/thunkReaderAction";
+import {createReader, updateReader} from "../../redux/thunkReaderAction";
 
 const ReaderForm = (props) => {
     const dispatch = useDispatch();
 
     const onSubmit = (e, values) => {
         e.preventDefault()
-        dispatch(createReader(values))
+        console.log(values)
+        if (props.editReader) {
+            dispatch(updateReader(props.editReader._id, values))
+        } else {
+            dispatch(createReader(values))
+        }
         props.handleOpenForm()
     }
 

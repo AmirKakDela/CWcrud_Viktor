@@ -1,6 +1,6 @@
 import axios from "axios";
 import {url} from "./thunkBookAction";
-import {createBookAction, deleteReaderAction, setReadersAction} from "./reducers/readerReducer";
+import {createReaderAction, deleteReaderAction, setReadersAction, updateReaderAction} from "./reducers/readerReducer";
 import {cleanErrorAction, setErrorAction} from "./reducers/errorReducer";
 
 export const getReaders = () => {
@@ -39,7 +39,23 @@ export const createReader = (reader) => {
         try {
             const response = await axios.post(`${url}/api/readers/create`, reader)
             console.log(response)
-            dispatch(createBookAction(reader))
+            dispatch(createReaderAction(reader))
+        } catch (e) {
+            dispatch(setErrorAction(e.response.data.message))
+
+            setTimeout(() => {
+                dispatch(cleanErrorAction())
+            }, 4000)
+        }
+    }
+}
+
+export const updateReader = (id, reader) => {
+    return async dispatch => {
+        try {
+            const response = await axios.put(`${url}/api/readers/update/${id}`, reader)
+            console.log(response)
+            updateReaderAction(response.data.reader)
         } catch (e) {
             dispatch(setErrorAction(e.response.data.message))
 

@@ -17,6 +17,15 @@ const readerReducer = (state = initialState, action) => {
             return {
                 ...state, readers: [...state.readers, action.payload]
             }
+        case UPDATE_READER:
+            return {
+                ...state, readers: [...state.readers].map(reader => {
+                    if(reader._id === action.payload._id) {
+                        reader = {...action.payload}
+                    }
+                    return reader
+                })
+            }
         default:
             return state
     }
@@ -27,6 +36,7 @@ export default  readerReducer
 const SET_READERS = 'SET_READERS'
 const DELETE_READER = 'DELETE_READER'
 const CREATE_READER = 'CREATE_READER'
+const UPDATE_READER = 'UPDATE_READER'
 
 export const setReadersAction = (readers) => {
     return {
@@ -42,9 +52,16 @@ export const deleteReaderAction = (id) => {
     }
 }
 
-export const createBookAction = (reader) => {
+export const createReaderAction = (reader) => {
     return {
         type: CREATE_READER,
+        payload: reader
+    }
+}
+
+export const updateReaderAction = (reader) => {
+    return {
+        type: UPDATE_READER,
         payload: reader
     }
 }
