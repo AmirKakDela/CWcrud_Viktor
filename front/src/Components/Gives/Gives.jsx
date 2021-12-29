@@ -10,6 +10,8 @@ const Gives = () => {
     const gives = useSelector(state => state.gives.gives)
     const error = useSelector(state => state.error.error);
 
+    console.log(gives)
+
     const handleOpenForm = () => {
         setLookForm(prev => !prev)
     }
@@ -59,5 +61,6 @@ const Gives = () => {
         </div>
     );
 };
+
 
 export default Gives;

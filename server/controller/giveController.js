@@ -9,39 +9,61 @@ class giveController {
             if (!gives) return res.json([])
             const booksIds = []
             const readersIds = []
+
             for (let i = 0; i < gives.length; i++) {
                 booksIds[i] = gives[i].book
                 readersIds[i] = gives[i].reader
             }
 
-            const books = await Book.find({_id: booksIds})
-            const readers = await Reader.find({_id: readersIds})
+            console.log(booksIds.length === readersIds.length)
+            console.log(gives)
 
-            for(let i = 0; i < gives.length; i++) {
-                if(gives[i].book === books[i]._id.valueOf()) {
-                    gives[i].book = books[i]
+
+            for (let i = 0; i < gives.length; i++) {
+                if (booksIds.includes(gives[i].book)) {
+                    const book = await Book.findById(gives[i].book)
+                    gives[i].book = book
                 }
-                if(gives[i].reader === readers[i]._id.valueOf()) {
-                    gives[i].reader = readers[i]
+                if(readersIds.includes(gives[i].reader)) {
+                    const reader = await Reader.findById(gives[i].reader)
+                    gives[i].reader = reader
                 }
             }
+
+            // const books = await Book.find({_id: booksIds})
+            // const readers = await Reader.find({_id: readersIds})
+
+            // console.log(books)
+            // console.log(readers)
+
+            // for(let i = 0; i < gives.length; i++) {
+            //     if(gives[i].book === books[i]._id.valueOf()) {
+            //         gives[i].book = books[i]
+            //     }
+            //     if(gives[i].reader === readers[i]._id.valueOf()) {
+            //         gives[i].reader = readers[i]
+            //     }
+            // }
 
 
             return res.json(gives);
         } catch (e) {
-            return res.send({message: "Ошибка сервера получении всех выдач."});
             console.log('Ошибка сервера при getAllGives', e);
+            return res.send({message: "Ошибка сервера получении всех выдач."});
         }
     }
 
     async createGive(req, res) {
         try {
-            const candidateGive = await Gives.findOne({book: req.body.book, lastName: req.body.reader})
-            console.log('candidateGive', candidateGive)
+            console.log(req.body)
+            const candidateGive = await Gives.findOne({book: req.body.book, reader: req.body.reader})
             if (candidateGive) return res.status(412).json({message: "Этому читателю уже была выдана данная книга"});
-            const reader = new Gives(req.body);
-            reader.save();
-            return res.json(reader);
+
+            const give = new Gives(req.body);
+            give.save();
+
+            console.log(give)
+            return res.json(give);
         } catch (e) {
             return res.send({message: "Ошибка сервера при создании выдачи."});
             console.log('Ошибка сервера при createGive', e);
@@ -59,16 +81,6 @@ class giveController {
             console.log('Ошибка сервера при deleteReader', e);
         }
     }
-    //
-    // async updateReader(req, res) {
-    //     try {
-    //         const updatedReader = await Reader.findByIdAndUpdate({ _id: req.params.id }, req.body)
-    //         return res.status(200).json({ message: 'Обновлено успешно', reader: updatedReader });
-    //     } catch (e) {
-    //         return res.send({message: "Ошибка сервера при обновлении читателя."});
-    //         console.log('Ошибка сервера при updateReader', e);
-    //     }
-    // }
 }
 
 module.exports = new giveController();

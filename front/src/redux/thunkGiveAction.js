@@ -34,3 +34,19 @@ export const deleteGive = (id) => {
         }
     }
 }
+
+export const createGive = (give) => {
+    return async dispatch => {
+        try {
+            const response = await axios.post(`${url}/api/gives/create/`, give)
+            console.log(response)
+            dispatch(getGives());
+        } catch (e) {
+            dispatch(setErrorAction(e.response.data.message))
+
+            setTimeout(() => {
+                dispatch(cleanErrorAction())
+            }, 4000)
+        }
+    }
+}
