@@ -40,7 +40,10 @@ export const createGive = (give) => {
         try {
             const response = await axios.post(`${url}/api/gives/create/`, give)
             console.log('createGive', response)
-            dispatch(getGives());
+            setTimeout(() => {
+                dispatch(getGives());
+            }, 200)
+
         } catch (e) {
             dispatch(setErrorAction(e.response.data.message))
 

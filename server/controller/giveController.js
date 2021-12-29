@@ -15,37 +15,16 @@ class giveController {
                 readersIds[i] = gives[i].reader
             }
 
-            console.log(booksIds.length === readersIds.length)
-            console.log(gives)
-
-
             for (let i = 0; i < gives.length; i++) {
                 if (booksIds.includes(gives[i].book)) {
                     const book = await Book.findById(gives[i].book)
                     gives[i].book = book
                 }
-                if(readersIds.includes(gives[i].reader)) {
+                if (readersIds.includes(gives[i].reader)) {
                     const reader = await Reader.findById(gives[i].reader)
                     gives[i].reader = reader
                 }
             }
-
-            // const books = await Book.find({_id: booksIds})
-            // const readers = await Reader.find({_id: readersIds})
-
-            // console.log(books)
-            // console.log(readers)
-
-            // for(let i = 0; i < gives.length; i++) {
-            //     if(gives[i].book === books[i]._id.valueOf()) {
-            //         gives[i].book = books[i]
-            //     }
-            //     if(gives[i].reader === readers[i]._id.valueOf()) {
-            //         gives[i].reader = readers[i]
-            //     }
-            // }
-
-
             return res.json(gives);
         } catch (e) {
             console.log('Ошибка сервера при getAllGives', e);
@@ -55,14 +34,25 @@ class giveController {
 
     async createGive(req, res) {
         try {
-            console.log(req.body)
             const candidateGive = await Gives.findOne({book: req.body.book, reader: req.body.reader})
             if (candidateGive) return res.status(412).json({message: "Этому читателю уже была выдана данная книга"});
 
             const give = new Gives(req.body);
             give.save();
 
-            console.log(give)
+            const book = await Book.findById(give.book)
+            console.log(book)
+            if (book.count > 0) {
+                book.count = book.count - 1
+            } else {
+                book.count = 0
+            }
+            console.log(book.count)
+
+            book.save()
+
+
+            console.log('give', give)
             return res.json(give);
         } catch (e) {
             return res.send({message: "Ошибка сервера при создании выдачи."});
