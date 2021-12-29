@@ -7,7 +7,7 @@ export const getGives = () => {
     return async dispatch => {
         try {
             const response = await axios.get(`${url}/api/gives/all`)
-            console.log(response)
+            console.log('getGives', response)
             dispatch(setGivesAction(response.data))
         } catch (e) {
             dispatch(setErrorAction(e.response.data.message))
@@ -39,7 +39,7 @@ export const createGive = (give) => {
     return async dispatch => {
         try {
             const response = await axios.post(`${url}/api/gives/create/`, give)
-            console.log(response)
+            console.log('createGive', response)
             dispatch(getGives());
         } catch (e) {
             dispatch(setErrorAction(e.response.data.message))

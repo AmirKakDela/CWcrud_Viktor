@@ -10,8 +10,6 @@ const Gives = () => {
     const gives = useSelector(state => state.gives.gives)
     const error = useSelector(state => state.error.error);
 
-    console.log(gives)
-
     const handleOpenForm = () => {
         setLookForm(prev => !prev)
     }
@@ -31,7 +29,7 @@ const Gives = () => {
                     onClick={handleOpenForm}
             >{lookForm ? 'Отменить' : 'Создать выдачу'}</button>
             {lookForm ?
-                <GiveForm/>
+                <GiveForm handleOpenForm={handleOpenForm}/>
                 : null}
 
             <table className="table">

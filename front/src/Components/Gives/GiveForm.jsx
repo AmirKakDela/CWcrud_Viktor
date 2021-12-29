@@ -25,6 +25,7 @@ const GiveForm = (props) => {
             }, 3000)
         } else {
             dispatch(createGive(values))
+            props.handleOpenForm()
         }
         console.log(values)
     }

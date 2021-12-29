@@ -8,7 +8,6 @@ export const getBooks = () => {
     return async dispatch => {
         try {
             const response = await axios.get(`${url}/api/books/all`)
-            console.log(response)
             dispatch(setBooksAction(response.data))
         } catch (e) {
 
