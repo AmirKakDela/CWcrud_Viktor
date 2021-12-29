@@ -42,8 +42,8 @@ const Gives = () => {
                 <tbody>
                 {gives.map(give => {
                     return <tr key={give._id}>
-                        <td>{give.book}</td>
-                        <td>{give.reader}</td>
+                        <td>{give.book.name}</td>
+                        <td>{give.reader.firstName} {give.reader.lastName}</td>
                         <td>{give.dateGive}</td>
                         <td>{give.dateReturn}</td>
                         <td>

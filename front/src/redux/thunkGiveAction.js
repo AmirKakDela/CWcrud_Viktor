@@ -18,3 +18,13 @@ export const getGives = () => {
         }
     }
 }
+
+export const deleteGive = () => {
+    return async dispatch => {
+        try {
+
+        } catch (e) {
+
+        }
+    }
+}
