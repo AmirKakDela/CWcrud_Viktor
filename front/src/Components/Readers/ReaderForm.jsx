@@ -11,7 +11,7 @@ const ReaderForm = (props) => {
     const onSubmit = (e, values) => {
         e.preventDefault()
         dispatch(createReader(values))
-        console.log(values)
+        props.handleOpenForm()
     }
 
     return (

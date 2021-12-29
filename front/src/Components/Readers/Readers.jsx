@@ -6,16 +6,25 @@ import {deleteReader, getReaders} from "../../redux/thunkReaderAction";
 
 const Readers = () => {
     const readers = useSelector(state => state.readers.readers)
+    const error = useSelector(state => state.error.error)
     const dispatch = useDispatch()
     const [lookForm, setLookForm] = useState(false);
+    const [editReader, setEditReader] = useState(null)
 
     const handleOpenForm = () => {
         setLookForm(prev => !prev)
+        setEditReader(null)
     }
 
     const handleDeleteReader = (id) => {
         console.log(id)
         dispatch(deleteReader(id))
+    }
+
+    const handleEditReader = (id) => {
+        setLookForm(true)
+        const reader = readers.find(reader => reader._id === id)
+        setEditReader(reader)
     }
 
 
@@ -26,11 +35,15 @@ const Readers = () => {
 
     return (
         <div>
+
+            {error ? <div className="main__error main__error_active">{error}</div> : null}
             <button className="button"
                     onClick={handleOpenForm}
             >{lookForm ? 'Отменить' : 'Добавить читателя'}</button>
             {lookForm ?
                 <ReaderForm
+                    editReader={editReader}
+                    handleOpenForm={handleOpenForm}
                 />
                 : null}
 
@@ -51,7 +64,7 @@ const Readers = () => {
                         <td>{reader.tel}</td>
                         <td>
                             <DeleteOutlined onClick={() => handleDeleteReader(reader._id)}/>
-                            <EditOutlined onClick={() => {}}/>
+                            <EditOutlined onClick={() => handleEditReader(reader._id)}/>
                         </td>
                     </tr>
                 })}

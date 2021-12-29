@@ -6,20 +6,16 @@ import {Formik} from "formik";
 
 const BookForm = (props) => {
     const dispatch = useDispatch();
-    console.log('BookForm', props.editBook)
 
     const onSubmit = (e, values) => {
         e.preventDefault()
         if (values.name && values.author && values.year) {
-            console.log(values)
-            console.log(props.editBook)
             if (props.editBook) {
-                console.log('put')
                 dispatch(updateBook(props.editBook._id, values))
             } else {
                 dispatch(createBook(values))
             }
-            props.handleCloseForm();
+            props.handleOpenForm();
         }
     }
 

@@ -14,8 +14,8 @@ class bookController {
 
     async createReader(req, res) {
         try {
-            const candidateReader = await Reader.findOne({firstName: req.body.firstName})
-            console.log(candidateReader)
+            const candidateReader = await Reader.findOne({firstName: req.body.firstName, lastName: req.body.lastName})
+            console.log('candidateReader', candidateReader)
             if (candidateReader) return res.status(412).json({message: "Такой читатель уже существует"});
             const reader = new Reader(req.body);
             reader.save();

@@ -37,7 +37,7 @@ export const setReadersAction = (readers) => {
 
 export const deleteReaderAction = (id) => {
     return {
-        type: SET_READERS,
+        type: DELETE_READER,
         payload: id
     }
 }

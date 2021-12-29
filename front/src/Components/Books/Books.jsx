@@ -9,19 +9,14 @@ import BookForm from "./BookForm";
 const Books = () => {
     const dispatch = useDispatch();
     const books = useSelector(state => state.books.books)
+    const error = useSelector(state => state.error.error)
     const [lookForm, setLookForm] = useState(false);
     const [editBook, setEditBook] = useState(null)
-    console.log('Book', editBook)
 
     const handleEditBook = (id) => {
         setLookForm(true)
         const book = books.find(book => book._id === id)
         setEditBook(book)
-    }
-
-    const handleCloseForm = () => {
-        setLookForm(false)
-        setEditBook(null)
     }
 
     const handleOpenForm = () => {
@@ -40,11 +35,12 @@ const Books = () => {
 
     return (
         <div>
+            {error ? <div className="main__error main__error_active">{error}</div> : null}
             <button className="button"
                     onClick={handleOpenForm}
             >{lookForm ? 'Отменить' : 'Добавить книгу'}</button>
             {lookForm ?
-                <BookForm handleCloseForm={handleCloseForm}
+                <BookForm handleOpenForm={handleOpenForm}
                           editBook={editBook}
                 />
                 : null}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import {url} from "./thunkBookAction";
-import {deleteReaderAction, setReadersAction} from "./reducers/readerReducer";
+import {createBookAction, deleteReaderAction, setReadersAction} from "./reducers/readerReducer";
+import {cleanErrorAction, setErrorAction} from "./reducers/errorReducer";
 
 export const getReaders = () => {
     return async dispatch => {
@@ -8,7 +9,11 @@ export const getReaders = () => {
             const response = await axios.get(`${url}/api/readers/all`)
             dispatch(setReadersAction(response.data))
         } catch (e) {
+            dispatch(setErrorAction(e.response.data.message))
 
+            setTimeout(() => {
+                dispatch(cleanErrorAction())
+            }, 4000)
         }
     }
 }
@@ -20,7 +25,11 @@ export const deleteReader = (id) => {
             console.log(response)
             dispatch(deleteReaderAction(id))
         } catch (e) {
+            dispatch(setErrorAction(e.response.data.message))
 
+            setTimeout(() => {
+                dispatch(cleanErrorAction())
+            }, 4000)
         }
     }
 }
@@ -30,9 +39,13 @@ export const createReader = (reader) => {
         try {
             const response = await axios.post(`${url}/api/readers/create`, reader)
             console.log(response)
-            dispatch(createReader(reader))
+            dispatch(createBookAction(reader))
         } catch (e) {
-            console.log(e)
+            dispatch(setErrorAction(e.response.data.message))
+
+            setTimeout(() => {
+                dispatch(cleanErrorAction())
+            }, 4000)
         }
     }
 }
