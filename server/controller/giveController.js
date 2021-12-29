@@ -17,12 +17,10 @@ class giveController {
 
             for (let i = 0; i < gives.length; i++) {
                 if (booksIds.includes(gives[i].book)) {
-                    const book = await Book.findById(gives[i].book)
-                    gives[i].book = book
+                    gives[i].book = await Book.findById(gives[i].book)
                 }
                 if (readersIds.includes(gives[i].reader)) {
-                    const reader = await Reader.findById(gives[i].reader)
-                    gives[i].reader = reader
+                    gives[i].reader = await Reader.findById(gives[i].reader)
                 }
             }
             return res.json(gives);
@@ -41,13 +39,11 @@ class giveController {
             give.save();
 
             const book = await Book.findById(give.book)
-            console.log(book)
             if (book.count > 0) {
                 book.count = book.count - 1
             } else {
                 book.count = 0
             }
-            console.log(book.count)
 
             book.save()
 
@@ -55,8 +51,8 @@ class giveController {
             console.log('give', give)
             return res.json(give);
         } catch (e) {
-            return res.send({message: "Ошибка сервера при создании выдачи."});
             console.log('Ошибка сервера при createGive', e);
+            return res.send({message: "Ошибка сервера при создании выдачи."});
         }
     }
 
@@ -72,8 +68,8 @@ class giveController {
             book.save()
             return res.json({message: 'Выдача успешно удалена'});
         } catch (e) {
-            return res.send({message: "Ошибка сервера при удалении читателя."});
             console.log('Ошибка сервера при deleteReader', e);
+            return res.send({message: "Ошибка сервера при удалении читателя."});
         }
     }
 }

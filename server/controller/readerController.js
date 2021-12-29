@@ -1,4 +1,5 @@
 const Reader = require("../models/Reader.js");
+const Gives = require("../models/Gives.js");
 
 class bookController {
     async getAllReaders(req, res) {
@@ -7,8 +8,8 @@ class bookController {
             if (!reader) return res.json([])
             return res.json(reader);
         } catch (e) {
-            return res.send({message: "Ошибка сервера получении все читателей."});
             console.log('Ошибка сервера при getAllReaders', e);
+            return res.send({message: "Ошибка сервера получении все читателей."});
         }
     }
 
@@ -21,8 +22,8 @@ class bookController {
             reader.save();
             return res.json(reader);
         } catch (e) {
-            return res.send({message: "Ошибка сервера при создании читателя."});
             console.log('Ошибка сервера при createReader', e);
+            return res.send({message: "Ошибка сервера при создании читателя."});
         }
     }
 
@@ -30,10 +31,19 @@ class bookController {
         try {
             const deletedReader = await Reader.findByIdAndDelete(req.params.id);
             if (!deletedReader) return res.status(412).json({message: "Такого читателя не существует"});
+
+            const gives = await Gives.find({reader: deletedReader._id })
+            // console.log(gives)
+
+            for(let i = 0; i < gives.length; i++) {
+                console.log(gives[i])
+                await Gives.findByIdAndDelete(gives[i]._id)
+            }
+
             return res.json({message: 'Читатель успешно удален'});
         } catch (e) {
-            return res.send({message: "Ошибка сервера при удалении читателя."});
             console.log('Ошибка сервера при deleteReader', e);
+            return res.send({message: "Ошибка сервера при удалении читателя."});
         }
     }
 
@@ -42,8 +52,8 @@ class bookController {
             const updatedReader = await Reader.findByIdAndUpdate({ _id: req.params.id }, req.body)
             return res.status(200).json({ message: 'Обновлено успешно', reader: updatedReader });
         } catch (e) {
-            return res.send({message: "Ошибка сервера при обновлении читателя."});
             console.log('Ошибка сервера при updateReader', e);
+            return res.send({message: "Ошибка сервера при обновлении читателя."});
         }
     }
 }

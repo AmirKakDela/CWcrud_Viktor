@@ -1,4 +1,5 @@
 const Book = require("../models/Book.js");
+const Gives = require("../models/Gives.js");
 
 class bookController {
 
@@ -8,8 +9,8 @@ class bookController {
             if (!books) return res.json([])
             return res.json(books);
         } catch (e) {
-            return res.send({message: "Ошибка сервера при нахождении всех книг."});
             console.log('Ошибка сервера при getAllBooks', e);
+            return res.send({message: "Ошибка сервера при нахождении всех книг."});
         }
     }
 
@@ -22,8 +23,8 @@ class bookController {
             console.log(book)
             return res.json(book);
         } catch (e) {
-            return res.send({message: "Ошибка сервера при создании книги."});
             console.log('Ошибка сервера при createBook', e);
+            return res.send({message: "Ошибка сервера при создании книги."});
         }
     }
 
@@ -31,10 +32,18 @@ class bookController {
         try {
             const deletedBook = await Book.findByIdAndDelete(req.params.id);
             if (!deletedBook) return res.status(412).json({message: "Такой книги не существует"});
+
+            const gives = await Gives.find({book: deletedBook._id })
+
+            for(let i = 0; i < gives.length; i++) {
+                console.log(gives[i])
+                await Gives.findByIdAndDelete(gives[i]._id)
+            }
+
             return res.json({message: 'Книга успешно удалена'});
         } catch (e) {
-            return res.send({message: "Ошибка сервера при удалении книги."});
             console.log('Ошибка сервера при deleteBook', e);
+            return res.send({message: "Ошибка сервера при удалении книги."});
         }
     }
 
@@ -45,8 +54,8 @@ class bookController {
             console.log(updatedBook)
             return res.json({message: 'Книга успешно обновлена', updatedBook: req.body});
         } catch (e) {
-            return res.send({message: "Ошибка сервера при обновлении книги."});
             console.log('Ошибка сервера при updateBook', e);
+            return res.send({message: "Ошибка сервера при обновлении книги."});
         }
     }
 }
