@@ -48,17 +48,17 @@ class giveController {
         }
     }
 
-    //
-    // async deleteReader(req, res) {
-    //     try {
-    //         const deletedReader = await Reader.findByIdAndDelete(req.params.id);
-    //         if (!deletedReader) return res.status(412).json({message: "Такого читателя не существует"});
-    //         return res.json({message: 'Читатель успешно удален'});
-    //     } catch (e) {
-    //         return res.send({message: "Ошибка сервера при удалении читателя."});
-    //         console.log('Ошибка сервера при deleteReader', e);
-    //     }
-    // }
+
+    async deleteGive(req, res) {
+        try {
+            const deletedGive = await Gives.findByIdAndDelete(req.params.id);
+            if (!deletedGive) return res.status(412).json({message: "Такой выдачи не существует"});
+            return res.json({message: 'Выдача успешно удалена'});
+        } catch (e) {
+            return res.send({message: "Ошибка сервера при удалении читателя."});
+            console.log('Ошибка сервера при deleteReader', e);
+        }
+    }
     //
     // async updateReader(req, res) {
     //     try {
