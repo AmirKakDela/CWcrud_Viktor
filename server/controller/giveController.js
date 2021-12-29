@@ -65,6 +65,11 @@ class giveController {
         try {
             const deletedGive = await Gives.findByIdAndDelete(req.params.id);
             if (!deletedGive) return res.status(412).json({message: "Такой выдачи не существует"});
+
+            console.log(deletedGive)
+            const book = await Book.findById(deletedGive.book)
+            book.count = book.count + 1
+            book.save()
             return res.json({message: 'Выдача успешно удалена'});
         } catch (e) {
             return res.send({message: "Ошибка сервера при удалении читателя."});
