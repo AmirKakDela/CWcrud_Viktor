@@ -32,7 +32,7 @@ export const createReader = (reader) => {
             console.log(response)
             dispatch(createReader(reader))
         } catch (e) {
-
+            console.log(e)
         }
     }
 }
