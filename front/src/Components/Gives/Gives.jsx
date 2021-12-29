@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import ReaderForm from "../Readers/ReaderForm";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {getGives} from "../../redux/thunkGiveAction";
+import {DeleteOutlined} from "@ant-design/icons";
+import {deleteGive, getGives} from "../../redux/thunkGiveAction";
 
 const Gives = () => {
     const dispatch = useDispatch();
     const [lookForm, setLookForm] = useState(false);
     const gives = useSelector(state => state.gives.gives)
-    console.log(gives)
     const error = useSelector(state => state.error.error);
 
     const handleOpenForm = () => {
         setLookForm(prev => !prev)
+    }
+
+    const handleDeleteGive = (id) => {
+        dispatch(deleteGive(id))
     }
 
     useEffect(() => {
@@ -47,8 +50,7 @@ const Gives = () => {
                         <td>{give.dateGive}</td>
                         <td>{give.dateReturn}</td>
                         <td>
-                            <DeleteOutlined onClick={() => {}}/>
-                            <EditOutlined onClick={() => {}}/>
+                            <DeleteOutlined onClick={() => handleDeleteGive(give._id)}/>
                         </td>
                     </tr>
                 })}
