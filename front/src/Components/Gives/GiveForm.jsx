@@ -140,6 +140,6 @@ const initialValues = {
 }
 
 
-function formatDate(date) {
+export function formatDate(date) {
     return new Date(date).toLocaleDateString()
 }

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {DeleteOutlined} from "@ant-design/icons";
 import {deleteGive, getGives} from "../../redux/thunkGiveAction";
-import GiveForm from "./GiveForm";
+import GiveForm, {formatDate} from "./GiveForm";
 
 const Gives = () => {
     const dispatch = useDispatch();
@@ -47,8 +47,8 @@ const Gives = () => {
                     return <tr key={give._id}>
                         <td>{give.book.name}</td>
                         <td>{give.reader.firstName} {give.reader.lastName}</td>
-                        <td>{give.dateGive}</td>
-                        <td>{give.dateReturn}</td>
+                        <td>{formatDate(give.dateGive)}</td>
+                        <td>{formatDate(give.dateReturn)}</td>
                         <td>
                             <DeleteOutlined onClick={() => handleDeleteGive(give._id)}/>
                         </td>

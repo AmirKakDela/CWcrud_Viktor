@@ -20,6 +20,7 @@ function App() {
                         <Route path="/books" element={<Books/>}/>
                         <Route path="/readers" element={<Readers/>}/>
                         <Route path="/gives" element={<Gives/>}/>
+                        <Route path="*" element={<Books/>}/>
                     </Routes>
                 </div>
         </>
