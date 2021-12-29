@@ -85,7 +85,7 @@
     font-weight: 500;
   }
 
-  input {
+  &__input {
     display: block;
     padding: 10px;
     border: none;
@@ -97,6 +97,16 @@
     }
   }
 
+  select.form__input {
+    font-weight: 500;
+    font-size: 15px;
+    option {
+      font-weight: 500;
+    }
+  }
+
+
+
   .button {
     margin-top: 10px;
     width: 300px;
@@ -107,10 +117,12 @@
       background-color: white;
       color: #676262;
     }
+
     &[disabled] {
       cursor: not-allowed;
       background-color: #8d8a8a;
       color: #cecccc;
+
       &:hover {
         background-color: #8d8a8a;
         color: #cecccc;

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import ReaderForm from "../Readers/ReaderForm";
 import {DeleteOutlined} from "@ant-design/icons";
 import {deleteGive, getGives} from "../../redux/thunkGiveAction";
+import GiveForm from "./GiveForm";
 
 const Gives = () => {
     const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Gives = () => {
                     onClick={handleOpenForm}
             >{lookForm ? 'Отменить' : 'Создать выдачу'}</button>
             {lookForm ?
-                <ReaderForm/>
+                <GiveForm/>
                 : null}
 
             <table className="table">
